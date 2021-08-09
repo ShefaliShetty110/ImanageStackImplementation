@@ -9,6 +9,8 @@ import java.util.Stack;
 
 public class StackClass {
     String[] stackArray;
+
+
     int topPointer=-1;
 
     public StackClass(int capacity) {
@@ -16,8 +18,10 @@ public class StackClass {
     }
     
     public String pop(){
-        if(topPointer<0)
+        if(topPointer<0) {
+            System.out.println("Stack is Empty");
             return "Stack is Empty";
+        }
         else
             return stackArray[topPointer--];
         
@@ -25,10 +29,12 @@ public class StackClass {
     }
     
     public boolean  push(String data){
-        if(topPointer<stackArray.length)
+        if(topPointer<stackArray.length-1)
              stackArray[++topPointer]=data;
-        else
+        else {
+            System.out.println("Stack Capacity full");
             return false;
+        }
         return true;
         
         
@@ -40,6 +46,16 @@ public class StackClass {
             return stackArray[index];
         return "Invalid Index!";
     }
+
+    public String displayAll()
+    {
+        StringBuffer output=new StringBuffer();
+        for(int i=0;i<=topPointer;i++)
+                output.append(stackArray[i]+" ");
+        return output.toString();
+    }
+
+
     
     
     

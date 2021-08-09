@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Stack Implementation without Collection</title>
         <meta charset="UTF-8">
@@ -13,39 +13,10 @@ and open the template in the editor.
     </head>
     <body>
         <label>Create new Stack</label>
-        <form id="createForm" action="/create" method="post">
+        <form method="post" action="@{/create}" >
+            <input id="capacity" placeholder="Enter Stack capacity"  type="number" />
 
-            <input type="number" id="capacity" placeholder="Enter Stack capacity">
-            <input type="submit" value="CREATE"/>
-            <p id="resultCreate"></p>
-        </form>
-        <script>
-        var form=document.getElementById('createForm')
-        form.addEventListener('submit',function(e){
-            e.preventDefault()
-            var size=document.getElementById('capacity')
-            fetch("http://localhost:8080/create",{
-            method="POST",
-            body:JSON.stringify({
-                size
-            }),
-            headers:{
-                "Content-Type":"application/json; charset=UTF-8"
-            }
-            })
-            .then(function(response){
-                return response.json()
-            })
-            .then(function(data){
-                console.log(data)
-            })
-
-        })
-    </script>
-        <br></br>
-        <form action="/push/{data}" method="post">
-            <input type="text" name="capacity" placeholder="Enter String to Push in Stack">	
-            <button type="submit" name="push" class="v">PUSH</button>
+            <input type="submit" value="Create Stack">
         </form>
         <br></br>
         <input type="text" name="capacity" placeholder="POP to remove top element from Stack">	

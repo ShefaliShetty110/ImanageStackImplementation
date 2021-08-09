@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -22,10 +23,10 @@ public class StackController {
 		return "stackWebPage";
 	}
 
-    @PostMapping(value="/create" ,consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<String> createNewStack( @RequestBody InputVo capacity){
-        System.out.println(capacity);
-      //   newStack=new StackClass(Integer.parseInt(body.get()));
+    @RequestMapping(value="/create" ,method = RequestMethod.POST)
+    public ResponseEntity<String> createNewStack(@RequestParam int capacity){
+
+         newStack=new StackClass(capacity);
          return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
@@ -34,14 +35,24 @@ public class StackController {
     public ResponseEntity<String> pushInStack(@PathVariable String data){
         if(newStack==null)
             newStack=new StackClass(CapacityConfig.getPropertyValue());
-          newStack.push(data);
-          return   ResponseEntity.status(HttpStatus.ACCEPTED).build();
+          if(newStack.push(data))
+              return   ResponseEntity.status(HttpStatus.CREATED).body("Successfully pushed!");
+          else
+              return   ResponseEntity.status(HttpStatus.INSUFFICIENT_STORAGE).body("Push failed");
 
     }
 
     @GetMapping(value="/pop")
-    public String popFromStack(){
-        return newStack.pop();
+    public ResponseEntity<String> popFromStack(){
+        return ResponseEntity.status(HttpStatus.OK).body(newStack.pop());
+
+    }
+
+    @GetMapping(value="/display")
+    public ResponseEntity<String> display(){
+        String result=newStack.displayAll();
+        System.out.println(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
 

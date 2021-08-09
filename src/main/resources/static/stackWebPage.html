@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Stack Implementation without Collection</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <label>Create new Stack</label>
+        <form action="/create/{capacity}" method="post">
+            <input type="number" name="capacity" placeholder="Enter Stack capacity">	
+            <button type="submit" name="create" class="v">CREATE</button>
+        </form>
+        <br></br>
+        <form action="/push/{data}" method="post">
+            <input type="text" name="capacity" placeholder="Enter String to Push in Stack">	
+            <button type="submit" name="push" class="v">PUSH</button>
+        </form>
+        <br></br>
+        <input type="text" name="capacity" placeholder="POP to remove top element from Stack">	
+
+        <button type="submit" onclick="location.href='/pop'"  name="pop" class="v">POP</button>
+        <br></br>
+        <input type="text" name="capacity" placeholder="Enter Index to peek index's value">	
+
+        <button type="submit" name="get" class="v">GET</button>
+
+
+    </body>
+</html>
